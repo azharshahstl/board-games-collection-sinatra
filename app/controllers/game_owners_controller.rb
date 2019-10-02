@@ -1,0 +1,8 @@
+class GameOwners < ApplicationController 
+
+
+
+
+
+
+end

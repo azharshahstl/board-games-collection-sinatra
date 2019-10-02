@@ -1,0 +1,5 @@
+class Manufacturers < ApplicationController
+  
+  
+  
+end
