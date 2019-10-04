@@ -2,9 +2,9 @@ class GameOwnersController < ApplicationController
 
 get '/signup' do 
     if logged_in? 
-      redirect '/tweets'
+      redirect '/games'
     else 
-      erb :'/users/signup'
+      erb :'/game_owners/signup'
     end
   end
 
