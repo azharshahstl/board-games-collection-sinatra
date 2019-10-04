@@ -7,6 +7,6 @@ class Game < ActiveRecord::Base
   end
 
   def self.find_by_slug(slug)
-    Artist.all.find { |artist| artist.slug == slug }
+    Game.all.find { |game| game.slug == slug }
   end
 end
