@@ -1,4 +1,4 @@
-class GameOwners < ApplicationController 
+class GameOwnersController < ApplicationController 
 
 
 

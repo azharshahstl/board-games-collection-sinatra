@@ -1,4 +1,4 @@
-class Manufacturers < ApplicationController
+class ManufacturersController < ApplicationController
   
   
   

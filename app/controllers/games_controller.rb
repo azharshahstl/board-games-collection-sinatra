@@ -1,4 +1,4 @@
-class Games < ApplicationController 
+class GamesController < ApplicationController 
   
   
   
