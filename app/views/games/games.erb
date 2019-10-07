@@ -1,3 +1,4 @@
 <H2>Here are list of all the games currently in our database.</H2>
-
-<a href
+<% @games.each do |game| %>
+<li><a href="/games/<%= game.slug%>"> <%= game.title %></a></li>
+<% end %>
