@@ -19,7 +19,7 @@ class GamesController < ApplicationController
   
   post "/new" do 
     @game = Game.new(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
-    @game.gameowner_id = current_user.id
+    @game.game_owner_id = current_user.id
     @game.save
     
     redirect "/games/#{@game.id}"
