@@ -1,5 +1,7 @@
 <% if flash[:failure_login] %>
-  <%= flash[:failure_login] %>
+    <%= flash[:failure_login] %>
+<% end %>
+  
 <h3> Enter your login information below.</h3><br>
 <form action="/login" method="POST">
   <label>Username:</label>

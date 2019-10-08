@@ -11,15 +11,17 @@ class GameOwnersController < ApplicationController
   post '/signup' do 
     @gameowner = GameOwner.new(username: params[:username], email: params[:email], password_digest: params[:password])
     if @gameowner.save 
-      erb :'games/games' 
+      
+      redirect '/games' 
     else 
       flash[:failure_signup] = "You did not follow my explicit instructions and shall now be publically shamed!  Or you chose a username that already existed, which is against the rules.  Choose another.....choose wisely."
-      redirect 'signup'
+      
+      redirect '/signup'
     end 
   end 
   
   get '/login' do 
-    if logged_in 
+    if logged_in? 
       redirect '/games' 
     else 
       erb :'/game_owners/login'
@@ -27,8 +29,8 @@ class GameOwnersController < ApplicationController
   end 
   
   post '/login' do 
-    @gameowner = GameOwner.find_by(params[:username])
-    if @gameowner && @user.authenticate(params[:password])
+    @gameowner = GameOwner.find_by(username: params[:username])
+    if @gameowner && @gameowner.authenticate(params[:password])
        session[:user_id] = @gameowner.id
        redirect '/games'
     else
@@ -36,10 +38,6 @@ class GameOwnersController < ApplicationController
       redirect '/login'
     end 
   end 
-      
-      
-      
-    
   
   get '/logout' do 
     if logged_in? 
