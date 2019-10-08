@@ -8,5 +8,14 @@ class GamesController < ApplicationController
       redirect '/login'
     end
   end
+  
+  get "/games/new" do 
+    if logged_in?
+      erb :'/games/new'
+    else 
+      redirect '/login' 
+    end 
+  end 
+    
     
 end

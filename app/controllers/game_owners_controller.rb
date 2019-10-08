@@ -13,10 +13,31 @@ class GameOwnersController < ApplicationController
     if @gameowner.save 
       erb :'games/games' 
     else 
-      flash[:failure] = "You did not follow my explicit instructions and now shall be publically shamed!  Or you choose a username that already existed, which is against the rules.  Choose another.....choose wisely."
+      flash[:failure] = "You did not follow my explicit instructions and shall now be publically shamed!  Or you chose a username that already existed, which is against the rules.  Choose another.....choose wisely."
       redirect 'signup'
     end 
   end 
+  
+  get '/login' do 
+    if logged_in 
+      redirect '/games' 
+    else 
+      erb :'/game_owners/login'
+    end 
+  end 
+  
+  post '/login' do 
+    @gameowner = GameOwner.find_by(params[:id])
+    
+  
+  get '/logout' do 
+    if logged_in? 
+      session.destroy 
+    else 
+      erb :welcome 
+    end 
+  end 
+      
     
   
 

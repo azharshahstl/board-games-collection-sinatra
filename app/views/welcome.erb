@@ -4,11 +4,17 @@
     <h2>BOARD GAMES COLLECTION</h2>
 
     <div class="content">
+      <% if logged_in? %>
+        <p>Welcome back, <%= current_user.username %></p><br> 
+        <a href='/games/new'>Enter a New Game</a><br>
+        <a href='/logout'>Logout (sorry to see you go)</a>
+        <% else %>
       <p>Welcome to the Board Games collection app.  It's a fun way to store information on your favorite board games and share it with your friends!</p><br>
       
       <a href="/signup">Click here to create a New Account</a><br>
       <a href="/login">Click here to Sign In</a>
     </div>
+    <% end %>
 
   </div>
 </div>
