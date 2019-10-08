@@ -16,6 +16,24 @@ class GamesController < ApplicationController
       redirect '/login' 
     end 
   end 
+  
+  post "/new" do 
+    @game = Game.create(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
+    @game.gameowner_id = @game.id
+    @game.save
+    
+    redirect "/games/#{@game.id}"
+  end
+  
+  get "games/:id" do
+    if logged_in?
+      @game = Game.find_by(params[:id])
+      erb :"/games/show_game" 
+    else
+      redirect "/login" 
+    end 
+  end 
+    
     
     
 end

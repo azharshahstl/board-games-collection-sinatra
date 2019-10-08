@@ -1,0 +1,8 @@
+<h1>Here is the game you just entered: "<%=@game.title%>"</h1>
+
+<form action="/games/<%= @game.id %>/delete" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" id="Delete Game" value="Delete Game">
+</form><br>
+
+<a href="/games/<%= @game.id%>/edit">Edit Game </a>
