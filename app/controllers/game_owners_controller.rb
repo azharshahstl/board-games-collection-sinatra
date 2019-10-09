@@ -9,7 +9,7 @@ class GameOwnersController < ApplicationController
   end
   
   post '/signup' do 
-    @gameowner = GameOwner.new(username: params[:username], email: params[:email], password_digest: params[:password])
+    @gameowner = GameOwner.new(username: params[:username], email: params[:email], password: params[:password])
     if @gameowner.save
       session[:user_id] = @gameowner.id
       
@@ -43,7 +43,7 @@ class GameOwnersController < ApplicationController
   get '/logout' do 
     if logged_in? 
       session.destroy 
-      redirect '/login'
+      erb :welcome
     else 
       erb :welcome 
     end 
