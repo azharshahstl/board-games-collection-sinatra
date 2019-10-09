@@ -23,6 +23,15 @@ class ApplicationController < Sinatra::Base
     def current_user 
       GameOwner.find(session[:user_id])
     end
+    
+    def slug
+      title.downcase.gsub(" ","-")
+    end
+
+    def self.find_by_slug(slug)
+      Game.all.find {|game| game.slug == slug}
+    end
+    
   end
 
 end
