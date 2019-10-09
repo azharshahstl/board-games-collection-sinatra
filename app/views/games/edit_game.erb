@@ -1,0 +1,17 @@
+<%  if flash[:edit_failure] %>
+<%= flash[:edit_failure] %>
+<% end %>
+
+<h2>So you're sayin there are some things that need to be changed.  Ok, go ahead then.</h2>
+<form action="/games/<%= @game.id %>" method="POST">
+<input type="hidden" name="_method" value="PATCH">
+<label>Game Title:</label>
+<input type="text" name="title" value="<%= @game.title %>"><br>
+<label>Number of People Who Can Play this Game:</label>
+<input type="text" name="number_of_players" value="<%= @game.number_of_players %>"><br>
+<label>Estimated Time to Play:</label>
+<input type="text" name="est_time_to_play" value="<%= @game.est_time_to_play %>"><br>
+<label>Brief Description of Game or Your Thoughts on it:</label>
+<input type="text" name="game_info" value="<%= @game.game_info %>"><br>
+<input type="submit" value="Press Only If you Are Absolutely Sure You Want These Changes">
+</form>
