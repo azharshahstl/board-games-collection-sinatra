@@ -1,12 +1,12 @@
 class GamesController < ApplicationController 
   
   get '/games/:slug' do
+    if logged_in?
     @game = Game.find_by_slug(params[:slug])
-    # fix this erb :'games/show'
+    erb :'games/show_requested_game'
   end
   
   get "/games" do
-    #binding.pry
     if logged_in?
       @games = Game.all
     erb :'/games/games'
