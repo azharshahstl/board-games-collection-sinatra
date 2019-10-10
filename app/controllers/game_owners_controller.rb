@@ -48,6 +48,14 @@ class GameOwnersController < ApplicationController
       erb :welcome 
     end 
   end 
+  
+  get '/movie' do 
+    if logged_in? 
+      erb :"/game_owners/movie" 
+    else 
+      redirect "/login" 
+    end 
+  end 
       
     
   
