@@ -1,13 +1,13 @@
 class GamesController < ApplicationController 
   
-  get '/games/:slug' do
-    if logged_in?
-      @game = Game.find_by_slug(params[:slug])
-      erb :'games/show_requested_game'
-    else 
-      redirect '/login'
-    end
-  end
+  #get '/games/:slug' do
+    #if logged_in?
+     # @game = Game.find_by_slug(params[:slug])
+     # erb :'games/show_requested_game'
+    #else 
+      #redirect '/login'
+    #end
+  #end
   
   get "/games" do
     if logged_in?
