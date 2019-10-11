@@ -41,7 +41,8 @@ class GamesController < ApplicationController
     @game.game_owner_id = current_user.id
     @game.game_owner = current_user
     @game.manufacturer_id = @manufacturer.id
-    if @game.save
+
+    if @game.save && @manufacturer.save
        redirect "/games/#{@game.id}"
     else
        flash[:new_game_failure] = "You are part of the Rebel Alliance and clearly do not know how to complete all the fields in the Empires' computer system.  Try it again and then off to the incinerators with you!"
