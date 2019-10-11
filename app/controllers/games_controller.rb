@@ -1,14 +1,5 @@
 class GamesController < ApplicationController 
   
-  #get '/games/:slug' do
-    #if logged_in?
-     # @game = Game.find_by_slug(params[:slug])
-     # erb :'games/show_requested_game'
-    #else 
-      #redirect '/login'
-    #end
-  #end
-  
   get "/games" do
     if logged_in?
       @games = Game.all
@@ -40,10 +31,9 @@ class GamesController < ApplicationController
     @manufacturer = Manufacturer.new(name: params[:manufacturer])
     @manufacturer.save
     @game.game_owner_id = current_user.id
-    @game.game_owner = current_user
     @game.manufacturer_id = @manufacturer.id
     @game.save
-    
+  
     if @game.save && @manufacturer.save
        redirect "/games/#{@game.id}"
     else

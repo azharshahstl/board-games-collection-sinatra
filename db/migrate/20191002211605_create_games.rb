@@ -6,8 +6,6 @@ class CreateGames < ActiveRecord::Migration
       t.string :est_time_to_play 
       t.string :game_info
       t.integer :game_owner_id
-      t.string :game_owner 
-      t.string :manufacturer 
       t.integer :manufacturer_id
       end
    end
