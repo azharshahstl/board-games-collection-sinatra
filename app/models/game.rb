@@ -1,12 +1,6 @@
 class Game < ActiveRecord::Base 
   belongs_to :manufacturer 
   has_many :game_owners
+  validates :title, :number_of_players, :est_time_to_play, :manufacturer, presence :true
   
-  def slug
-    title.downcase.gsub(" ","-")
-  end
-
-  def self.find_by_slug(slug)
-    Game.all.find { |game| game.slug == slug }
-  end
 end
