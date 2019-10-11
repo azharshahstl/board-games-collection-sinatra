@@ -37,12 +37,12 @@ class GamesController < ApplicationController
   
   post "/new" do 
     @game = Game.new(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
-    @manufacturer = Manufacturer.new(manufacturer: params[:manufacturer])
+    @manufacturer = Manufacturer.new(name: params[:manufacturer])
     @game.game_owner_id = current_user.id
     @game.game_owner = current_user
     @game.manufacturer_id = @manufacturer.id
-binding.pry
     if @game.save && @manufacturer.save
+      binding.pry
        redirect "/games/#{@game.id}"
     else
        flash[:new_game_failure] = "You are part of the Rebel Alliance and clearly do not know how to complete all the fields in the Empires' computer system.  Try it again and then off to the incinerators with you!"
