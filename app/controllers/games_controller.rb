@@ -33,7 +33,7 @@ class GamesController < ApplicationController
     @game.game_owner_id = current_user.id
     @game.manufacturer_id = @manufacturer.id
     @game.save
-  
+  binding.pry
     if @game.save && @manufacturer.save
        redirect "/games/#{@game.id}"
     else
