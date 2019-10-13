@@ -19,8 +19,7 @@ class GamesController < ApplicationController
   
   get "/games/:id" do
     if logged_in?
-      @game = Game.find_by(params[:id])
-      binding.pry
+      @game = Game.find_by_id(params[:id])
       erb :"/games/show_game" 
     else
       redirect "/login" 
@@ -29,11 +28,17 @@ class GamesController < ApplicationController
   
   post "/new" do 
     @game = Game.new(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
-    @manufacturer = Manufacturer.new(name: params[:manufacturer])
-    @manufacturer.save
-    @game.game_owner_id = current_user.id
-    @game.manufacturer_id = @manufacturer.id
-    @game.save
+    @manufacturer = Manufacturer.find_by(name: params[:manufacturer])
+    if @manufacturer 
+      @game.manufacturer_id = @manufacturer.id
+      @game.save
+    else
+      @manufacturer = Manufacturer.new(name: params[:manufacturer])
+      @manufacturer.save
+      @game.game_owner_id = current_user.id
+      @game.manufacturer_id = @manufacturer.id
+      @game.save
+    end
     if @game.save && @manufacturer.save
        redirect "/games/#{@game.id}"
     else
