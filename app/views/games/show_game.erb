@@ -2,6 +2,7 @@
 <h2>Number of Players: <%= @game.number_of_players %></h2>
 <h2>Estimated time to play: <%= @game.est_time_to_play %></h2>
 <h2>Game Information: <%= @game.game_info %></h2>
+<h2>Game Manufacturer: <%= @game.manufacturer.name %></h2>
 
 <form action="/games/<%= @game.id %>/delete" method="POST">
   <input id="hidden" type="hidden" name="_method" value="DELETE">

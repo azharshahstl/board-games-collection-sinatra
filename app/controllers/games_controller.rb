@@ -20,6 +20,7 @@ class GamesController < ApplicationController
   get "/games/:id" do
     if logged_in?
       @game = Game.find_by(params[:id])
+      binding.pry
       erb :"/games/show_game" 
     else
       redirect "/login" 
@@ -33,7 +34,6 @@ class GamesController < ApplicationController
     @game.game_owner_id = current_user.id
     @game.manufacturer_id = @manufacturer.id
     @game.save
-  binding.pry
     if @game.save && @manufacturer.save
        redirect "/games/#{@game.id}"
     else
@@ -44,7 +44,7 @@ class GamesController < ApplicationController
   
   get "/games/:id/edit" do 
     if logged_in? 
-      @game = Game.find_by(params[:id]) 
+      @game = Game.find_by(params[:id])
       if @game && @game.game_owner_id == current_user.id
          
           erb :"/games/edit_game"
@@ -68,6 +68,7 @@ class GamesController < ApplicationController
       @game = Game.find_by(params[:id]) 
         if @game && @game.game_owner_id == current_user.id 
            @game = Game.update(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
+           @manufactuerer = Manufacturer.update(name: params[:manufacturer])
        
            redirect "/games/#{@game.id}"
         else 
