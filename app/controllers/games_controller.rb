@@ -49,7 +49,7 @@ class GamesController < ApplicationController
   
   get "/games/:id/edit" do 
     if logged_in? 
-      @game = Game.find_by(params[:id])
+      @game = Game.find_by_id(params[:id])
       if @game && @game.game_owner_id == current_user.id
          
           erb :"/games/edit_game"
