@@ -64,11 +64,12 @@ class GamesController < ApplicationController
   end
   
   patch "/games/:id" do
+    @game = Game.find_by_id(params[:id])
     if params[:title] == "" || params[:number_of_players] == "" || params[:est_time_to_play] == "" || params[:game_info] == ""
       
       flash[:edit_failure] = "You task me... You task me and I shall have you.  You know you can't leave any fields blank."
       
-      redirect "/games/#{@games.id}/edit"
+      redirect "/games/#{@game.id}/edit"
       
     else 
       @game = Game.find_by_id(params[:id]) 
