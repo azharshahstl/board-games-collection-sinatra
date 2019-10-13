@@ -31,6 +31,7 @@ class GamesController < ApplicationController
     @manufacturer = Manufacturer.find_by(name: params[:manufacturer])
     if @manufacturer 
       @game.manufacturer_id = @manufacturer.id
+      @game.game_owner_id = current_user.id
       @game.save
     else
       @manufacturer = Manufacturer.new(name: params[:manufacturer])
@@ -70,10 +71,10 @@ class GamesController < ApplicationController
       redirect "/games/#{@games.id}/edit"
       
     else 
-      @game = Game.find_by(params[:id]) 
+      @game = Game.find_by_id(params[:id]) 
         if @game && @game.game_owner_id == current_user.id 
            @game = Game.update(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
-           @manufactuerer = Manufacturer.update(name: params[:manufacturer])
+           @manufacturer = Manufacturer.update(name: params[:manufacturer])
        
            redirect "/games/#{@game.id}"
         else 
