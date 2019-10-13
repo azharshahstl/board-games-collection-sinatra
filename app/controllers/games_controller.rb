@@ -74,7 +74,6 @@ class GamesController < ApplicationController
     else 
       @manufacturer = Manufacturer.find_or_create_by(name: params[:manufacturer])
         if @game && @game.game_owner_id == current_user.id 
-          binding.pry
            @game.update(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
            @game.manufacturer_id = @manufacturer.id
        
