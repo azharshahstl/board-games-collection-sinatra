@@ -74,11 +74,11 @@ class GamesController < ApplicationController
     else 
       @game = Game.find_by_id(params[:id]) 
       @manufacturer = Manufacturer.find_by(name: params[:manufacturer])
-      
+      binding.pry
         if @game && @game.game_owner_id == current_user.id 
            @game.update(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
           
-           @manufacturer.update(name: params[:manufacturer])
+           @game.manufacturer_id = @manufacturer.update(name: params[:manufacturer]).id
        
            redirect "/games/#{@game.id}"
         else 
