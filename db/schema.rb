@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 20191002211619) do
 
   create_table "manufacturers", force: :cascade do |t|
     t.string "name"
-    t.string "location"
   end
 
 end
