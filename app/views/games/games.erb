@@ -1,7 +1,7 @@
 <h2>Here are list of all the games currently in our database.</h2>
-<ol>
+<ul>
 <% @games.each do |game| %>
 <li><a href="/games/<%= game.id%>"> <%= game.title %></a> entered by <%= game.game_owner.email.split("@").first %></li>
 <% end %>
-</ol>
+</ul>
 
