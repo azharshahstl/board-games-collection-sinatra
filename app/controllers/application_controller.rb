@@ -31,7 +31,12 @@ class ApplicationController < Sinatra::Base
     def self.find_by_slug(slug)
       Game.all.find {|game| game.slug == slug}
     end
-    
+
+    def redirect_if_not_logged_in
+      if !logged_in? 
+        redirect '/login' 
+      end
+    end
   end
 
 end

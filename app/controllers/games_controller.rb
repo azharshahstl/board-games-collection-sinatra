@@ -1,29 +1,21 @@
 class GamesController < ApplicationController 
   
   get "/games" do
-    if logged_in?
-      @games = Game.all
+    redirect_if_not_logged_in
+    @games = Game.all
     erb :'/games/games'
-    else 
-      redirect '/login'
-    end
   end
   
   get "/games/new" do 
-    if logged_in?
-      erb :'/games/new'
-    else 
-      redirect '/login' 
-    end 
+    redirect_if_not_logged_in
+    erb :'/games/new' 
   end 
   
   get "/games/:id" do
-    if logged_in?
+    redirect_if_not_logged_in
       @game = Game.find_by_id(params[:id])
       erb :"/games/show_game" 
-    else
-      redirect "/login" 
-    end 
+      redirect "/login"  
   end 
   
   post "/new" do 
@@ -45,7 +37,7 @@ class GamesController < ApplicationController
     else
        flash[:new_game_failure] = "You are part of the Rebel Alliance and clearly do not know how to complete all the fields in the Empires' computer system.  Try it again and then off to the incinerators with you!"
        redirect "/games/new" 
-     end 
+    end 
   end
   
   get "/games/:id/edit" do 
@@ -76,6 +68,7 @@ class GamesController < ApplicationController
         if @game && @game.game_owner_id == current_user.id 
            @game.update(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
            @game.manufacturer_id = @manufacturer.id
+           @game.save
        
            redirect "/games/#{@game.id}"
         else 

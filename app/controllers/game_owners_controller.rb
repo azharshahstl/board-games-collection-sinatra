@@ -1,5 +1,10 @@
 class GameOwnersController < ApplicationController 
 
+  get '/home' do 
+    erb :'game_owners/index' 
+  end
+
+
   get '/signup' do
     if logged_in? 
       erb :'/game_owners/index'
