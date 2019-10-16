@@ -56,8 +56,5 @@ class GameOwnersController < ApplicationController
       redirect "/login" 
     end 
   end 
-      
-    
-  
 
 end

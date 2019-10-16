@@ -1,5 +1,6 @@
 <%  if flash[:edit_failure] %>
-<%= flash[:edit_failure] %>
+<img src="http://morestarwars.com/wp-content/uploads/2019/02/yoda-do.jpg" width="250" height="250">
+<p id="flash"><%= flash[:edit_failure] %></p>
 <% end %>
 
 <h2>So you're sayin there are some things that need to be changed.  Ok, go ahead then.</h2>
@@ -13,5 +14,8 @@
 <input type="text" name="est_time_to_play" value="<%= @game.est_time_to_play %>"><br>
 <label>Brief Description of Game or Your Thoughts on it:</label>
 <input type="text" name="game_info" value="<%= @game.game_info %>"><br>
+<label>Game Manufacturer:</label>
+<input type="text" name="manufacturer" value="<%= @game.manufacturer.name %>"><br>
+<br>
 <input type="submit" value="Press Only If you Are Absolutely Sure You Want These Changes">
 </form>

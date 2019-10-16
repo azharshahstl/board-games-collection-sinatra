@@ -1,14 +1,5 @@
 class GamesController < ApplicationController 
   
-  #get '/games/:slug' do
-    #if logged_in?
-     # @game = Game.find_by_slug(params[:slug])
-     # erb :'games/show_requested_game'
-    #else 
-      #redirect '/login'
-    #end
-  #end
-  
   get "/games" do
     if logged_in?
       @games = Game.all
@@ -28,7 +19,7 @@ class GamesController < ApplicationController
   
   get "/games/:id" do
     if logged_in?
-      @game = Game.find_by(params[:id])
+      @game = Game.find_by_id(params[:id])
       erb :"/games/show_game" 
     else
       redirect "/login" 
@@ -37,15 +28,29 @@ class GamesController < ApplicationController
   
   post "/new" do 
     @game = Game.new(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
-    @game.game_owner_id = current_user.id
-    @game.save
-    
-    redirect "/games/#{@game.id}"
+    @manufacturer = Manufacturer.find_by(name: params[:manufacturer])
+    if @manufacturer 
+      @game.manufacturer_id = @manufacturer.id
+      @game.game_owner_id = current_user.id
+      @game.save
+    else
+      @manufacturer = Manufacturer.new(name: params[:manufacturer])
+      @manufacturer.save
+      @game.game_owner_id = current_user.id
+      @game.manufacturer_id = @manufacturer.id
+      @game.save
+    end
+    if @game.save && @manufacturer.save
+       redirect "/games/#{@game.id}"
+    else
+       flash[:new_game_failure] = "You are part of the Rebel Alliance and clearly do not know how to complete all the fields in the Empires' computer system.  Try it again and then off to the incinerators with you!"
+       redirect "/games/new" 
+     end 
   end
   
   get "/games/:id/edit" do 
     if logged_in? 
-      @game = Game.find_by(params[:id]) 
+      @game = Game.find_by_id(params[:id])
       if @game && @game.game_owner_id == current_user.id
          
           erb :"/games/edit_game"
@@ -59,16 +64,18 @@ class GamesController < ApplicationController
   end
   
   patch "/games/:id" do
+    @game = Game.find_by_id(params[:id])
     if params[:title] == "" || params[:number_of_players] == "" || params[:est_time_to_play] == "" || params[:game_info] == ""
       
       flash[:edit_failure] = "You task me... You task me and I shall have you.  You know you can't leave any fields blank."
       
-      redirect "/games/#{@games.id}/edit"
+      redirect "/games/#{@game.id}/edit"
       
     else 
-      @game = Game.find_by(params[:id]) 
+      @manufacturer = Manufacturer.find_or_create_by(name: params[:manufacturer])
         if @game && @game.game_owner_id == current_user.id 
-           @game = Game.update(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
+           @game.update(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
+           @game.manufacturer_id = @manufacturer.id
        
            redirect "/games/#{@game.id}"
         else 
@@ -81,7 +88,7 @@ class GamesController < ApplicationController
   
   delete "/games/:id/delete" do
     if logged_in?
-      @game = Game.find_by(params[:id])
+      @game = Game.find_by_id(params[:id])
        if @game && @game.game_owner_id == current_user.id
           @game.delete
           redirect "/games"

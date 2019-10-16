@@ -1,7 +1,11 @@
 @media screen {
   /* --- Reset Styles --- */
   * {
+<<<<<<< HEAD
     /* list-style: none; */
+=======
+    /*list-style: none;*/
+>>>>>>> 964f7e2755da97168d555c900ae29ca703a73df3
     margin: 0;
     padding: 0;
   }

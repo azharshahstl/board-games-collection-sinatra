@@ -1,3 +1,7 @@
+<% if flash[:new_game_failure] %>
+    <p id="flash"><%= flash[:new_game_failure] %></p>
+<% end %>
+
 <h2>Well, you made it this far.  Go ahead and enter the following information into each field.  Try not to mess this up. </h2>
 <form action="/new" method="POST">
 <label>Enter Game Title:</label>
@@ -8,6 +12,8 @@
 <input type="text" name="est_time_to_play"><br>
 <label>Enter a Brief Description of the Game or Your General Thoughts About the game:</label>
 <input type="text" name="game_info"><br>
+<label>Now Padawan, tell me the name of the Manufacturer you will: </label>
+<input type="text" name="manufacturer"> 
 <input type="submit" name="submit" value="Submit">
 </form>
 
