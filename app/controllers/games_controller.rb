@@ -19,6 +19,7 @@ class GamesController < ApplicationController
   end 
   
   post "/new" do 
+    redirect_if_not_logged_in
     @game = Game.new(title: params[:title], number_of_players: params[:number_of_players], est_time_to_play: params[:est_time_to_play], game_info: params[:game_info])
     @manufacturer = Manufacturer.find_by(name: params[:manufacturer])
     if @manufacturer 
